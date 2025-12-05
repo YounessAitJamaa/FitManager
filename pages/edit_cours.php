@@ -66,8 +66,8 @@
     <div class="flex-1 p-8">
         <!-- Updated header styling to match cours.html design -->
         <div class="mb-8">
-            <h1 class="text-4xl font-bold text-white mb-2">Ajouter un cours</h1>
-            <p class="text-slate-400">Créez un nouveau cours pour vos participants</p>
+            <h1 class="text-4xl font-bold text-white mb-2">Modifier un cours</h1>
+            <p class="text-slate-400">Modifier un cours</p>
         </div>
 
         <!-- Updated error message styling to match dark theme -->
