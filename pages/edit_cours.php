@@ -2,23 +2,23 @@
 
     require "../config/db.php";
 
-    if(isset($_GET['id'])) {
-
-        $id = $_GET['id'];
-
-        $query = "SELECT * FROM cours WHERE id_cours = $id";
-
-        $result = mysqli_query($conn, $query);
-
-        $cour = mysqli_fetch_assoc($result);
-
-        if(!$cour) {
-            echo "Cour not found";
-            exit;
-        }
-
+    if(!isset($_GET['id'])) {
+        echo "Invalide course ID";
+        exit;
     }
 
+    $id = $_GET['id'];
+
+    $query = "SELECT * FROM cours WHERE id_cours = $id";
+
+    $result = mysqli_query($conn, $query);
+
+    $cour = mysqli_fetch_assoc($result);
+
+    if(!$cour) {
+        echo "Cour not found";
+        exit;
+    }
 
     if(isset($_POST['submit'])) {
        
@@ -86,9 +86,9 @@
             <label class="block mb-3">
                 <span class="font-semibold">Catégorie :</span>
                 <select name="category" class="w-full p-2 border rounded mt-1">
-                    <option <?= ($cour['category'] == 'Yoga') ? "selected" : "" ?> >Yoga</option>
-                    <option <?= ($cour['category'] == 'Cardio') ? "selected" : "" ?>>Cardio</option>
-                    <option <?= ($cour['category'] == 'Musculation') ? "selected" : "" ?> >Musculation</option>
+                    <option value="Yoga" <?= ($cour['category'] == 'Yoga') ? "selected" : "" ?> >Yoga</option>
+                    <option value="Cardio" <?= ($cour['category'] == 'Cardio') ? "selected" : "" ?>>Cardio</option>
+                    <option value="Musculation" <?= ($cour['category'] == 'Musculation') ? "selected" : "" ?> >Musculation</option>
                 </select>
             </label>
 

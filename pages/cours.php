@@ -19,10 +19,26 @@
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold">Liste des Cours</h1>
 
-            <a href="add_cours.php" 
-               class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                + Ajouter un cour
-            </a>
+            <div class="flex gap-2">
+                <form action="" method="GET" class="flex">
+                    <input type="text" name="search" value="<?= htmlspecialchars($search) ?>" 
+                        placeholder="Rechercher..." 
+                        class="p-2 border rounded-l">
+                    <button type="submit" class="bg-blue-600 text-white px-4 rounded-r hover:bg-blue-700">
+                        Chercher
+                    </button>
+                </form>
+
+                <a href="export_cours.php?search=<?= urlencode($search) ?>" 
+                   class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                    Export CSV
+                </a>
+
+                <a href="add_cours.php" 
+                   class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    + Ajouter un cour
+                </a>
+            </div>
         </div>
 
         <!-- Table -->

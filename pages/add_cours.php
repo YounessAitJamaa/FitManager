@@ -39,12 +39,11 @@
     <?php require "../includes/sidebar.php"; ?>
 
 
-<!-- Main content -->
     <div class="flex-1 p-8">
 
         <h1 class="text-3xl font-bold mb-6">Ajouter un cour</h1>
 
-        <!-- Error message -->
+
         <?php if (!empty($error)): ?>
             <div class="bg-red-500 text-white p-3 rounded mb-4">
                 <?= $error ?>

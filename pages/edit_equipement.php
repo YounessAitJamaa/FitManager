@@ -72,10 +72,10 @@
             <label class="block mb-3">
                 <span class="font-semibold">Type :</span>
                 <select name="type" class="w-full p-2 border rounded mt-1">
-                    <option <?= ($equipement['type_equipement'] == 'Tapis de course') ? 'selected' : '' ?>>Tapis de course</option>
-                    <option <?= ($equipement['type_equipement'] == 'Halteres') ? 'selected' : '' ?>>Halteres</option>
-                    <option <?= ($equipement['type_equipement'] == 'Ballon') ? 'selected' : '' ?>>Ballon</option>
-                    <option <?= ($equipement['type_equipement'] == 'Machine musculation') ? 'selected' : '' ?>>Machine musculation</option>
+                    <option value="Tapis de course " <?= ($equipement['type_equipement'] == 'Tapis de course') ? 'selected' : '' ?>>Tapis de course</option>
+                    <option value="Halteres" <?= ($equipement['type_equipement'] == 'Halteres') ? 'selected' : '' ?>>Halteres</option>
+                    <option value="Ballon" <?= ($equipement['type_equipement'] == 'Ballon') ? 'selected' : '' ?>>Ballon</option>
+                    <option value="Machine musculation" <?= ($equipement['type_equipement'] == 'Machine musculation') ? 'selected' : '' ?>>Machine musculation</option>
                 </select>
             </label>
 
@@ -87,9 +87,9 @@
             <label class="block mb-3">
                 <span class="font-semibold">État :</span>
                 <select name="etat" class="w-full p-2 border rounded mt-1">
-                    <option <?= ($equipement['etat'] == 'Bon') ? 'selected' : '' ?>>Bon</option>
-                    <option <?= ($equipement['etat'] == 'Moyen') ? 'selected' : '' ?>>Moyen</option>
-                    <option <?= ($equipement['etat'] == 'A remplacer') ? 'selected' : ''?>>A remplacer</option>
+                    <option value="Bon" <?= ($equipement['etat'] == 'Bon') ? 'selected' : '' ?>>Bon</option>
+                    <option value="Moyen" <?= ($equipement['etat'] == 'Moyen') ? 'selected' : '' ?>>Moyen</option>
+                    <option value="A remplacer" <?= ($equipement['etat'] == 'A remplacer') ? 'selected' : ''?>>A remplacer</option>
                 </select>
             </label>
 

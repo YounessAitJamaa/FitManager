@@ -7,7 +7,7 @@
         header("Location: ../pages/auth/login.php");
         exit;
     }
-
+    
     $username = $_SESSION['username'];
 
     // Cours 
