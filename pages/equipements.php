@@ -7,60 +7,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> 
-    <title>Cours</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Équipements</title>
 </head>
-<body class="flex min-h-screen bg-gray-100">
+<body class="flex bg-slate-950 text-slate-100 min-h-screen">
     
     <?php require "../includes/sidebar.php"; ?>
 
     <div class="flex-1 p-8">
+        <!-- Header Section -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">Liste des Équipements</h1>
+            <p class="text-slate-400">Gérez et organisez vos équipements</p>
+        </div>
 
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold">Liste des Cours</h1>
+        <!-- Action Bar -->
+        <div class="flex flex-col gap-4 mb-8 md:flex-row md:items-center md:justify-between">
+            <form action="" method="GET" class="flex gap-2 flex-1 max-w-md">
+                <input type="text" name="search" value="<?= htmlspecialchars($search ?? '') ?>" 
+                    placeholder="Rechercher un équipement..." 
+                    class="flex-1 px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+                    Chercher
+                </button>
+            </form>
 
-            <a href="add_equipements.php" 
-               class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                + Ajouter un equipement
-            </a>
+            <div class="flex gap-3">
+                <a href="export_equipements.php?search=<?= urlencode($search ?? '') ?>" 
+                   class="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium inline-flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2m0 0v-8m0 8l-4-2m4 2l4-2"/></svg>
+                    Export CSV
+                </a>
+
+                <a href="add_equipements.php" 
+                   class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium inline-flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    Ajouter un équipement
+                </a>
+            </div>
         </div>
 
         <!-- Table -->
-        <table class="w-full border-collapse shadow">
-            <thead>
-                <tr class="bg-gray-800 text-white">
-                    <th class="p-3">Nom</th>
-                    <th class="p-3">Type equipement</th>
-                    <th class="p-3">quantite</th>
-                    <th class="p-3">etat</th>
-                    <th class="p-3">Actions</th>
-                </tr>
-            </thead>
+        <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden shadow-lg">
+            <table class="w-full">
+                <thead>
+                    <tr class="bg-slate-900 border-b border-slate-700">
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-slate-300">Nom</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-slate-300">Type</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-slate-300">Quantité</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-slate-300">État</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-slate-300">Actions</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-            <?php
-                $result = mysqli_query($conn, "SELECT * FROM equipements");
+                <tbody class="divide-y divide-slate-700">
+                <?php
+                    $result = mysqli_query($conn, "SELECT * FROM equipements");
 
-                while($row = mysqli_fetch_assoc($result)) {
-                    echo "
-                        <tr class='border-b'>
-                            <td class='p-4'>{$row['nom']}</td>
-                            <td class='p-4'>{$row['type_equipement']}</td>
-                            <td class='p-4'>{$row['quantite']}</td>
-                            <td class='p-4'>{$row['etat']}</td>
-                            <td class='p-4 flex gap-2'>
-                                <a href='edit_equipement.php?id={$row['id_equipement']}'
-                                    class='bg-yellow-500 text-white px-3 py-1 rounded'>Modifier</a>
+                    while($row = mysqli_fetch_assoc($result)) {
+                        echo "
+                            <tr class='hover:bg-slate-700/50 transition'>
+                                <td class='px-6 py-4 text-sm text-white font-medium'>{$row['nom']}</td>
+                                <td class='px-6 py-4 text-sm text-slate-300'>
+                                    <span class='px-3 py-1 bg-slate-700 rounded-full text-xs'>{$row['type_equipement']}</span>
+                                </td>
+                                <td class='px-6 py-4 text-sm text-slate-300'>{$row['quantite']}</td>
+                                <td class='px-6 py-4 text-sm text-slate-300'>
+                                    <span class='px-3 py-1 bg-slate-700 rounded-full text-xs'>{$row['etat']}</span>
+                                </td>
+                                <td class='px-6 py-4 text-sm flex gap-2'>
+                                    <a href='edit_equipement.php?id={$row['id_equipement']}'
+                                        class='px-3 py-1 bg-amber-600 text-white rounded hover:bg-amber-700 transition text-xs font-medium'>
+                                        Modifier
+                                    </a>
 
-                                <a href='delete_equipement.php?id={$row['id_equipement']}'
-                                    class='bg-red-600 text-white px-3 py-1 rounded'>Supprimer</a>
-                        </tr>
-                    ";
-                }
-
-            ?>
-            <tbody>
-        </table>
+                                    <a href='delete_equipement.php?id={$row['id_equipement']}'
+                                        class='px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition text-xs font-medium'
+                                        onclick='return confirm(\"Êtes-vous sûr?\")'>
+                                        Supprimer
+                                    </a>
+                                </td>
+                            </tr>
+                        ";
+                    }
+                ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>
