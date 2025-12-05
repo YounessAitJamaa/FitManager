@@ -53,7 +53,7 @@
 
     <!-- Logout -->
     <div class="pt-6 border-t border-slate-800">
-        <a href="../auth/logout.php" class="flex items-center justify-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-pink-600 to-red-600 text-white hover:from-pink-700 hover:to-red-700 transition-all duration-200 font-medium text-sm">
+        <a href="../pages/auth/logout.php" class="flex items-center justify-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-pink-600 to-red-600 text-white hover:from-pink-700 hover:to-red-700 transition-all duration-200 font-medium text-sm">
             <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6-4v8" />
             </svg>
