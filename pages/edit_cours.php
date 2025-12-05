@@ -60,63 +60,83 @@
     <title>Add Cours</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> 
 </head>
-<body class="flex">
+<body class="flex bg-slate-950 text-slate-100 min-h-screen">
     <?php require "../includes/sidebar.php"; ?>
 
-
-<!-- Main content -->
     <div class="flex-1 p-8">
+        <!-- Updated header styling to match cours.html design -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">Ajouter un cours</h1>
+            <p class="text-slate-400">Créez un nouveau cours pour vos participants</p>
+        </div>
 
-        <h1 class="text-3xl font-bold mb-6">Modifier un cour</h1>
-
-        <!-- Error message -->
+        <!-- Updated error message styling to match dark theme -->
         <?php if (!empty($error)): ?>
-            <div class="bg-red-500 text-white p-3 rounded mb-4">
+            <div class="bg-red-600/20 border border-red-600 text-red-200 p-4 rounded-lg mb-6">
                 <?= $error ?>
             </div>
         <?php endif; ?>
 
-        <form action="" method="POST" class="bg-white p-6 rounded shadow w-1/2">
+        <!-- Updated form styling with dark theme, rounded corners, and proper spacing -->
+        <form action="" method="POST" class="bg-slate-800 border border-slate-700 rounded-xl p-8 max-w-2xl shadow-lg">
 
-            <label class="block mb-3">
-                <span class="font-semibold">Nom du cour :</span>
-                <input type="text" name="nom" value="<?= $cour['nom'] ?>" class="w-full p-2 border rounded mt-1">
+            <!-- Updated label and input styling for dark theme -->
+            <label class="block mb-6">
+                <span class="block text-sm font-semibold text-slate-300 mb-2">Nom du cours</span>
+                <input type="text" name="nom" value="<?= $cour['nom'] ?>"
+                    class="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition"
+                    placeholder="Entrez le nom du cours">
             </label>
 
-            <label class="block mb-3">
-                <span class="font-semibold">Catégorie :</span>
-                <select name="category" class="w-full p-2 border rounded mt-1">
-                    <option value="Yoga" <?= ($cour['category'] == 'Yoga') ? "selected" : "" ?> >Yoga</option>
-                    <option value="Cardio" <?= ($cour['category'] == 'Cardio') ? "selected" : "" ?>>Cardio</option>
-                    <option value="Musculation" <?= ($cour['category'] == 'Musculation') ? "selected" : "" ?> >Musculation</option>
+            <label class="block mb-6">
+                <span class="block text-sm font-semibold text-slate-300 mb-2">Catégorie</span>
+                <select name="category" 
+                    class="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
+                    <option value="">-- Choisir une catégorie --</option>
+                    <option value="Yoga" <?= ($cour['category'] == 'Yoga') ? 'selected' : '' ?>>Yoga</option>
+                    <option value="Cardio" <?= ($cour['category'] == 'Cardio') ? 'selected' : '' ?>>Cardio</option>
+                    <option value="Musculation" <?= ($cour['category'] == 'Musculation') ? 'selected' : '' ?>>Musculation</option>
                 </select>
             </label>
 
-            <label class="block mb-3">
-                <span class="font-semibold">Date :</span>
-                <input type="date" name="date_cour" value="<?= $cour['date_cour'] ?>" class="w-full p-2 border rounded mt-1">
+            <label class="block mb-6">
+                <span class="block text-sm font-semibold text-slate-300 mb-2">Date</span>
+                <input type="date" name="date_cour" value="<?= $cour['date_cour'] ?>"
+                    class="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
             </label>
 
-            <label class="block mb-3">
-                <span class="font-semibold">Heure :</span>
-                <input type="time" name="heure" value="<?= $cour['heure'] ?>" class="w-full p-2 border rounded mt-1">
+            <label class="block mb-6">
+                <span class="block text-sm font-semibold text-slate-300 mb-2">Heure</span>
+                <input type="time" name="heure" value="<?= $cour['heure'] ?>"
+                    class="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
             </label>
 
-            <label class="block mb-3">
-                <span class="font-semibold">Durée (minutes) :</span>
-                <input type="number" name="duree" value="<?= $cour['duree'] ?>" class="w-full p-2 border rounded mt-1">
+            <label class="block mb-6">
+                <span class="block text-sm font-semibold text-slate-300 mb-2">Durée (minutes)</span>
+                <input type="number" name="duree" value="<?= $cour['duree'] ?>"
+                    class="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition"
+                    placeholder="0">
             </label>
 
-            <label class="block mb-3">
-                <span class="font-semibold">Nombre max de participants :</span>
-                <input type="number" name="maxParticipants" value="<?= $cour['max_participants'] ?>" class="w-full p-2 border rounded mt-1">
+            <label class="block mb-8">
+                <span class="block text-sm font-semibold text-slate-300 mb-2">Nombre max de participants</span>
+                <input type="number" name="maxParticipants" value="<?= $cour['max_participants'] ?>"
+                    class="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition"
+                    placeholder="0">
             </label>
 
-            <button type="submit" name="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                Modifier
-            </button>
+            <!-- Updated button styling to match cours.html design with hover effects -->
+            <div class="flex gap-3">
+                <button type="submit" name="submit" 
+                    class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+                    Modifier
+                </button>
 
-            <a href="cours.php" class="ml-3 text-gray-700 hover:underline">Annuler</a>
+                <a href="cours.php" 
+                    class="px-6 py-2 bg-slate-700 text-slate-300 rounded-lg hover:bg-slate-600 transition font-medium">
+                    Annuler
+                </a>
+            </div>
         </form>
 
     </div>
