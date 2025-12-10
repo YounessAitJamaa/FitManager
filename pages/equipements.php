@@ -1,5 +1,27 @@
 <?php
-    require "../config/db.php"; 
+    require "../config/db.php";
+    
+    $query = "SELECT * FROM equipements";
+
+    $conditions = [];
+
+    if(!empty($_GET['type'])) {
+        $type = $_GET['type'];
+        $conditions[] = "type_equipement='$type'";
+    }
+
+    if(!empty($_GET['etat'])) {
+        $etat = $_GET['etat'];
+        $conditions[] = "etat='$etat'";
+    }
+
+    if(!empty($conditions)) {
+        $query .= " WHERE " . implode(" AND ", $conditions);
+    }
+
+
+
+    $result = mysqli_query($conn, $query);
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +69,27 @@
             </div>
         </div>
 
+        <form method="GET" class="flex gap-4 mb-6">
+            <!-- Filtre par type -->
+            <select name="type" class="px-4 py-2 bg-slate-700 text-white rounded-lg">
+                <option value="">Toutes les types</option>
+                <option value="Tapis de course" <?= (isset($_GET['type_equipement']) && $_GET['type_equipement']=='Tapis de course') ? 'selected' : '' ?>>Tapis de course</option>
+                <option value="Halteres" <?= (isset($_GET['type_equipement']) && $_GET['type_equipement']=='Halteres') ? 'selected' : '' ?>>Halteres</option>
+                <option value="Ballon" <?= (isset($_GET['type_equipement']) && $_GET['type_equipement']=='Ballon') ? 'selected' : '' ?>>Ballon</option>
+                <option value="Machine musculation" <?= (isset($_GET['type_equipement']) && $_GET['type_equipement']== 'Machine musculation') ? 'selected' : '' ?>>Machine musculation</option>
+            </select>
+
+            <!-- Tri par etat -->
+            <select name="etat" class="px-4 py-2 bg-slate-700 text-white rounded-lg">
+                <option value="">Tri par Etat</option>
+                <option value="A remplacer" <?= (isset($_GET['etat']) && $_GET['etat']=='A remplacer') ? 'selected' : '' ?>>A remplacer</option>
+                <option value="moyen" <?= (isset($_GET['etat']) && $_GET['etat']=='moyen') ? 'selected' : '' ?>>moyen</option>
+                <option value="bon" <?= (isset($_GET['etat']) && $_GET['etat']=='bon') ? 'selected' : '' ?>>bon</option>
+            </select>
+
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Filtrer</button>
+        </form>
+
         <!-- Table -->
         <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden shadow-lg">
             <table class="w-full">
@@ -62,8 +105,6 @@
 
                 <tbody class="divide-y divide-slate-700">
                 <?php
-                    $result = mysqli_query($conn, "SELECT * FROM equipements");
-
                     while($row = mysqli_fetch_assoc($result)) {
                         echo "
                             <tr class='hover:bg-slate-700/50 transition'>
