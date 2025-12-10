@@ -1,5 +1,39 @@
 <?php
-    require "../config/db.php"; 
+    require "../config/db.php";
+
+    $query = "SELECT * FROM cours";
+    
+    
+    $conditions = [];
+
+    if(!empty($_GET['category'])) {
+        $category = $_GET['category'];
+        $conditions[] = "category='$category'";
+    }
+
+    if(!empty($_GET['date'])) {
+        $date = $_GET['date'];
+        $conditions[] = "date_cour='$date'";
+    }
+
+
+    if(!empty($conditions)) {
+        $query .= " WHERE " . implode(" AND ", $conditions);
+    }
+
+    if(!empty($_GET['sort'])) {
+        switch($_GET['sort']) {
+            case 'nom_asc' : $query .=" ORDER BY nom ASC"; break;
+            case 'nom_desc' : $query .=" ORDER BY nom DESC"; break;
+            case 'date_asc' : $query .=" ORDER BY date_cour ASC"; break;
+            case 'date_desc' : $query .=" ORDER BY date_cour DESC"; break;
+            default : $query .=" ORDER BY id_cours DESC"; break;
+        }
+    } else {
+        $query .= " ORDER BY id_cours DESC"; 
+    }
+
+    $result = mysqli_query($conn, $query);
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +53,7 @@
         <div class="mb-8">
             <h1 class="text-4xl font-bold text-white mb-2">Liste des Cours</h1>
             <p class="text-slate-400">Gérez et organisez vos cours</p>
-        </div>
+        </div> 
 
         <!-- Action Bar -->
         <div class="flex flex-col gap-4 mb-8 md:flex-row md:items-center md:justify-between">
@@ -47,6 +81,31 @@
             </div>
         </div>
 
+        <form method="GET" class="flex gap-4 mb-6">
+            <!-- Filtre par catégorie -->
+            <select name="category" class="px-4 py-2 bg-slate-700 text-white rounded-lg">
+                <option value="">Toutes les catégories</option>
+                <option value="Yoga" <?= (isset($_GET['category']) && $_GET['category']=='Yoga') ? 'selected' : '' ?>>Yoga</option>
+                <option value="Cardio" <?= (isset($_GET['category']) && $_GET['category']=='Cardio') ? 'selected' : '' ?>>Cardio</option>
+                <option value="Musculation" <?= (isset($_GET['category']) && $_GET['category']=='Musculation') ? 'selected' : '' ?>>Musculation</option>
+            </select>
+
+            <!-- Filtre par date -->
+            <input type="date" name="date" value="<?= $_GET['date'] ?? '' ?>" class="px-4 py-2 bg-slate-700 text-white rounded-lg">
+
+            <!-- Tri par colonne -->
+            <select name="sort" class="px-4 py-2 bg-slate-700 text-white rounded-lg">
+                <option value="">Tri par défaut</option>
+                <option value="nom_asc" <?= (isset($_GET['sort']) && $_GET['sort']=='nom_asc') ? 'selected' : '' ?>>Nom A-Z</option>
+                <option value="nom_desc" <?= (isset($_GET['sort']) && $_GET['sort']=='nom_desc') ? 'selected' : '' ?>>Nom Z-A</option>
+                <option value="date_asc" <?= (isset($_GET['sort']) && $_GET['sort']=='date_asc') ? 'selected' : '' ?>>Date croissante</option>
+                <option value="date_desc" <?= (isset($_GET['sort']) && $_GET['sort']=='date_desc') ? 'selected' : '' ?>>Date décroissante</option>
+            </select>
+
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Filtrer</button>
+        </form>
+
+
         <!-- Table -->
         <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden shadow-lg">
             <table class="w-full">
@@ -64,8 +123,7 @@
 
                 <tbody class="divide-y divide-slate-700">
                 <?php
-                    $result = mysqli_query($conn, "SELECT * FROM cours");
-
+                    
                     while($row = mysqli_fetch_assoc($result)) {
                         echo "
                             <tr class='hover:bg-slate-700/50 transition'>
