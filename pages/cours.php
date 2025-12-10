@@ -6,6 +6,12 @@
     
     $conditions = [];
 
+    if(!empty($_GET['search'])) {
+        $search = $_GET['search'];
+        $conditions[] = "nom LIKE '%$search%'";
+    }
+
+
     if(!empty($_GET['category'])) {
         $category = $_GET['category'];
         $conditions[] = "category='$category'";

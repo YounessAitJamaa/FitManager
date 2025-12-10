@@ -5,6 +5,12 @@
 
     $conditions = [];
 
+
+    if(!empty($_GET['search'])) {
+        $search = $_GET['search'];
+        $conditions[] = "nom LIKE '%$search%'";
+    }
+
     if(!empty($_GET['type'])) {
         $type = $_GET['type'];
         $conditions[] = "type_equipement='$type'";
