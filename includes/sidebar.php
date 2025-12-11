@@ -48,6 +48,16 @@
                 </a>
             </li>
 
+            <li>
+                <a href="cours_equipements.php" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-indigo-400 transition-all duration-200 group">
+                    <svg class="w-5 h-5 flex-shrink-0 group-hover:text-indigo-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m-7 4h8M5 8h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V10a2 2 0 012-2z" />
+                    </svg>
+                    <span class="sidebar-text text-sm font-medium">Cours & Équipements</span>
+                </a>
+            </li>
+
+
         </ul>
     </nav>
 
