@@ -1,23 +1,32 @@
 <?php
 require "../config/db.php";
 
+// Build base query
 $query = "
-    SELECT c.id_cours, c.nom AS course_name, GROUP_CONCAT(e.nom SEPARATOR ', ') AS equipements
+    SELECT 
+        c.id_cours, 
+        c.nom AS course_name, 
+        GROUP_CONCAT(e.nom SEPARATOR ', ') AS equipements
     FROM cours c
     LEFT JOIN cours_equipements ce ON c.id_cours = ce.id_cours
     LEFT JOIN equipements e ON ce.id_equipement = e.id_equipement
-    GROUP BY c.id_cours
 ";
 
 $conditions = [];
-if(!empty($_GET['search'])) {
-    $search = $_GET['search'];
+
+// Add search filter
+if (!empty($_GET['search'])) {
+    $search = mysqli_real_escape_string($conn, $_GET['search']);
     $conditions[] = "c.nom LIKE '%$search%'";
 }
 
-if(!empty($conditions)) {
+// Add WHERE if conditions exist
+if (!empty($conditions)) {
     $query .= " WHERE " . implode(" AND ", $conditions);
 }
+
+// GROUP BY must always come *after* WHERE
+$query .= " GROUP BY c.id_cours";
 
 $result = mysqli_query($conn, $query);
 ?>
@@ -50,14 +59,6 @@ $result = mysqli_query($conn, $query);
                     Chercher
                 </button>
             </form>
-
-            <div class="flex gap-3">
-                <a href="edit_cours_equipements.php" 
-                   class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium inline-flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                    Ajouter une liaison
-                </a>
-            </div>
         </div>
 
         <!-- Updated table styling to match index.html design -->
